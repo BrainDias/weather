@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="'Погода в ' + ${city}">Weather</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<h2 th:text="'Погода в городе ' + ${city}"></h2>
+<canvas id="tempChart"></canvas>
+<script th:inline="javascript">
+    const hours = [[${hours}]];
+    const temps = [[${temps}]];
+    new Chart(document.getElementById('tempChart'), {
+        type: 'line',
+        data: {
+            labels: hours,
+            datasets: [{
+                label: 'Температура (°C)',
+                data: temps,
+                borderColor: 'red',
+                tension: 0.3
+            }]
+        },
+        options: {
+            scales: {
+                x: { title: { display: true, text: 'Время' }},
+                y: { title: { display: true, text: 'Температура (°C)' }}
+            }
+        }
+    });
+</script>
+</body>
+</html>
